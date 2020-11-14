@@ -20,7 +20,6 @@ public class MenuRepository {
         sideMenu.add(new Menu("허니브레드", 6000));
         sideMenu.add(new Menu("딸기 빙수", 7000));
         sideMenu.add(new Menu("아이스크림크로플", 8000));
-
     }
 
     public void getCoffeeMenu() {
