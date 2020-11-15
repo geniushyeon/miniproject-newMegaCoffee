@@ -27,7 +27,7 @@ public class Kiosk {
     }
 
     private void chooseMenu() {
-        for (;;) {
+        for (; ; ) {
             System.out.println("1. 주문\t2. 결제");
             System.out.print("입력: ");
             int choice = scanner.nextInt();
@@ -59,8 +59,7 @@ public class Kiosk {
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderList.add(menuRepository.sideMenu.get(choice - 1));
-        orderRepository.sum += menuRepository.sideMenu.get(choice-1).getPrice();
-
+        orderRepository.sum += menuRepository.sideMenu.get(choice - 1).getPrice();
     }
 
     private void orderSmoothie() {
@@ -69,7 +68,7 @@ public class Kiosk {
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderList.add(menuRepository.smoothieMenu.get(choice - 1));
-        orderRepository.sum += menuRepository.smoothieMenu.get(choice-1).getPrice();
+        orderRepository.sum += menuRepository.smoothieMenu.get(choice - 1).getPrice();
     }
 
     private void orderCoffee() {
@@ -78,7 +77,7 @@ public class Kiosk {
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderList.add(menuRepository.coffeeMenu.get(choice - 1));
-        orderRepository.sum += menuRepository.smoothieMenu.get(choice-1).getPrice();
+        orderRepository.sum += menuRepository.coffeeMenu.get(choice - 1).getPrice();
         stamp++;
     }
 
@@ -89,8 +88,7 @@ public class Kiosk {
         int choice = scanner.nextInt();
         if (choice == 1)
             stampcard();
-        if (choice == 2)
-            getReceipt();
+        getReceipt();
     }
 
     private void getReceipt() {
@@ -105,40 +103,33 @@ public class Kiosk {
     }
 
     private void stampcard() {
-        for (;;) {
+        boolean checkMember = true;
+        while (checkMember) {
             System.out.println("아이디를 입력하세요.");
             System.out.print("입력: ");
             String id = scanner.next();
-            // memberList 배열 돌면서 찾기
+            System.out.println("비밀번호를 입력하세요. ");
+            System.out.print("입력: ");
+            int password = scanner.nextInt();
             for (int i = 0; i < memberRepository.memberList.size(); i++) {
-                // 1. id 일치여부 확인
-                if (id.equals(memberRepository.memberList.get(i).getId())) {
+                if (id.equals(memberRepository.memberList.get(i).getId()) && password == memberRepository.memberList.get(i).getPassword()) {
                     int clientIndex = i;
-                    // 2. 비밀번호 일치여부 확인
-                    System.out.println("비밀번호를 입력하세요. ");
-                    System.out.print("입력: ");
-                    int password = scanner.nextInt();
-                    if (password == memberRepository.memberList.get(clientIndex).getPassword()) {
-                        System.out.println("\n" + id + " 회원님의 적립 현황입니다. ");
-                        memberRepository.memberList.get(clientIndex).setStamp(stamp);
-                        System.out.println("스탬프 개수: " + stamp + "개");
-                        if (stamp % 3 == 0) {
-                            System.out.println("커피 쿠폰이 " + stamp / 3 + "개 발급되었습니다.");
-                            break;
-                        }
-                        if (stamp < 3) {
-                            System.out.println("발급된 쿠폰이 없습니다. ");
-                            break;
-                        }
-                        getReceipt();
+                    System.out.println("\n" + id + " 회원님의 적립 현황입니다. ");
+                    memberRepository.memberList.get(clientIndex).setStamp(stamp);
+                    System.out.println("스탬프 개수: " + stamp + "개");
+                    if (stamp > 3) {
+                        System.out.println("커피 쿠폰이 " + stamp / 3 + "개 발급되었습니다.");
+                        checkMember = false;
+                    } else {
+                        System.out.println("발급된 쿠폰이 없습니다. ");
+                        checkMember = false;
                     }
-                }else {
-                    System.out.println("잘못 입력하였습니다. ");
-                    break;
-
+                }
+                else {
+                    System.out.println("잘못 입력하였습니다.");
                 }
             }
-        }
-    }//stampcard();
-
+        }//stampcard();
+    }
 }
+
