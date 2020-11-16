@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderRepository {
-    List<Menu> orderList = new ArrayList<>();
+    List<Product> productList = new ArrayList<>();
     public int sum = 0;
 
     public void getOrderList() {
-        for (Menu m : orderList) {
+        for (Product m : productList) {
             System.out.println(m);
         }
     }

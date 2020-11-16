@@ -1,40 +1,40 @@
 package megaCoffee;
 import java.util.*;
 public class MenuRepository {
-    List<Menu> coffeeMenu = new ArrayList<>();
-    List<Menu> smoothieMenu = new ArrayList<>();
-    List<Menu> sideMenu = new ArrayList<>();
+    List<Product> coffeeProducts = new ArrayList<>();
+    List<Product> smoothieProducts = new ArrayList<>();
+    List<Product> sideProducts = new ArrayList<>();
 
     public MenuRepository() {
         setMenu();
     }
 
     private void setMenu() {
-        coffeeMenu.add(new Menu("핫 아메리카노", 1500));
-        coffeeMenu.add(new Menu("아이스아메리카노", 2000));
-        coffeeMenu.add(new Menu("카페 라떼", 2500));
-        coffeeMenu.add(new Menu("카페 모카", 3000));
-        smoothieMenu.add(new Menu("블루베리 스무디", 4000));
-        smoothieMenu.add(new Menu("스트로베리 스무디", 4500));
-        smoothieMenu.add(new Menu("요거트 스무디", 5500));
-        sideMenu.add(new Menu("허니브레드", 6000));
-        sideMenu.add(new Menu("딸기 빙수", 7000));
-        sideMenu.add(new Menu("아이스크림크로플", 8000));
+        coffeeProducts.add(new Product("핫 아메리카노", 1500));
+        coffeeProducts.add(new Product("아이스아메리카노", 2000));
+        coffeeProducts.add(new Product("카페 라떼", 2500));
+        coffeeProducts.add(new Product("카페 모카", 3000));
+        smoothieProducts.add(new Product("블루베리 스무디", 4000));
+        smoothieProducts.add(new Product("스트로베리 스무디", 4500));
+        smoothieProducts.add(new Product("요거트 스무디", 5500));
+        sideProducts.add(new Product("허니브레드", 6000));
+        sideProducts.add(new Product("딸기 빙수", 7000));
+        sideProducts.add(new Product("아이스크림크로플", 8000));
     }
 
     public void getCoffeeMenu() {
-        for (Menu m : coffeeMenu) {
+        for (Product m : coffeeProducts) {
             System.out.println(m);
         }
     }
     public void getSmoothieMenu() {
-        for (Menu m : smoothieMenu) {
+        for (Product m : smoothieProducts) {
             System.out.println(m);
         }
     }
 
     public void getSideMenu() {
-        for (Menu m : sideMenu) {
+        for (Product m : sideProducts) {
             System.out.println(m);
         }
     }

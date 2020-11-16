@@ -58,8 +58,8 @@ public class Kiosk {
         menuRepository.getSideMenu();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderList.add(menuRepository.sideMenu.get(choice - 1));
-        orderRepository.sum += menuRepository.sideMenu.get(choice - 1).getPrice();
+        orderRepository.productList.add(menuRepository.sideProducts.get(choice - 1));
+        orderRepository.sum += menuRepository.sideProducts.get(choice - 1).getPrice();
     }
 
     private void orderSmoothie() {
@@ -67,8 +67,8 @@ public class Kiosk {
         menuRepository.getSmoothieMenu();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderList.add(menuRepository.smoothieMenu.get(choice - 1));
-        orderRepository.sum += menuRepository.smoothieMenu.get(choice - 1).getPrice();
+        orderRepository.productList.add(menuRepository.smoothieProducts.get(choice - 1));
+        orderRepository.sum += menuRepository.smoothieProducts.get(choice - 1).getPrice();
     }
 
     private void orderCoffee() {
@@ -76,8 +76,8 @@ public class Kiosk {
         menuRepository.getCoffeeMenu();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderList.add(menuRepository.coffeeMenu.get(choice - 1));
-        orderRepository.sum += menuRepository.coffeeMenu.get(choice - 1).getPrice();
+        orderRepository.productList.add(menuRepository.coffeeProducts.get(choice - 1));
+        orderRepository.sum += menuRepository.coffeeProducts.get(choice - 1).getPrice();
         stamp++;
     }
 
