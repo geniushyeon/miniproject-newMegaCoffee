@@ -117,13 +117,12 @@ public class Kiosk {
                     System.out.println("\n" + id + " 회원님의 적립 현황입니다. ");
                     memberRepository.memberList.get(clientIndex).setStamp(stamp);
                     System.out.println("스탬프 개수: " + stamp + "개");
-                    if (stamp > 3) {
+                    if (stamp >= 3) {
                         System.out.println("커피 쿠폰이 " + stamp / 3 + "개 발급되었습니다.");
-                        checkMember = false;
                     } else {
                         System.out.println("발급된 쿠폰이 없습니다. ");
-                        checkMember = false;
                     }
+                    checkMember = false;
                 }
                 else {
                     System.out.println("잘못 입력하였습니다.");
@@ -132,4 +131,3 @@ public class Kiosk {
         }//stampcard();
     }
 }
-
