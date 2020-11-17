@@ -27,6 +27,9 @@ public class Product {
 
     @Override
     public String toString() {
-        return name + ": " + price + "원";
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

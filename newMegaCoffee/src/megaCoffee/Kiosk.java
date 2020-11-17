@@ -10,6 +10,8 @@ public class Kiosk {
 
     private int packingType;
     private int stamp = 0;
+    private String id;
+    private int password;
 
     public Kiosk() {
 
@@ -58,7 +60,7 @@ public class Kiosk {
         menuRepository.getSideMenu();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.productList.add(menuRepository.sideProducts.get(choice - 1));
+        orderRepository.orderProductList.add(new OrderProduct(menuRepository.sideProducts.get(choice - 1)));
         orderRepository.sum += menuRepository.sideProducts.get(choice - 1).getPrice();
     }
 
@@ -67,7 +69,7 @@ public class Kiosk {
         menuRepository.getSmoothieMenu();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.productList.add(menuRepository.smoothieProducts.get(choice - 1));
+        orderRepository.orderProductList.add(new OrderProduct(menuRepository.smoothieProducts.get(choice - 1)));
         orderRepository.sum += menuRepository.smoothieProducts.get(choice - 1).getPrice();
     }
 
@@ -76,7 +78,7 @@ public class Kiosk {
         menuRepository.getCoffeeMenu();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.productList.add(menuRepository.coffeeProducts.get(choice - 1));
+        orderRepository.orderProductList.add(new OrderProduct(menuRepository.coffeeProducts.get(choice - 1)));
         orderRepository.sum += menuRepository.coffeeProducts.get(choice - 1).getPrice();
         stamp++;
     }
@@ -95,10 +97,10 @@ public class Kiosk {
         System.out.println("\n주문 내역입니다. ");
         orderRepository.getOrderList();
         if (packingType == 1) {
-            orderRepository.getTogoReceipt();
+            System.out.println(orderRepository.getTogoReceipt());
         }
         if (packingType == 2) {
-            orderRepository.getIndoorReceipt();
+            System.out.println(orderRepository.getIndoorReceipt());
         }
     }
 
@@ -107,10 +109,10 @@ public class Kiosk {
         while (checkMember) {
             System.out.println("아이디를 입력하세요.");
             System.out.print("입력: ");
-            String id = scanner.next();
+            id = scanner.next();
             System.out.println("비밀번호를 입력하세요. ");
             System.out.print("입력: ");
-            int password = scanner.nextInt();
+            password = scanner.nextInt();
             for (int i = 0; i < memberRepository.memberList.size(); i++) {
                 if (id.equals(memberRepository.memberList.get(i).getId()) && password == memberRepository.memberList.get(i).getPassword()) {
                     int clientIndex = i;

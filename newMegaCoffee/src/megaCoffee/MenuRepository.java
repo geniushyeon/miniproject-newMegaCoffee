@@ -23,19 +23,20 @@ public class MenuRepository {
     }
 
     public void getCoffeeMenu() {
-        for (Product m : coffeeProducts) {
-            System.out.println(m);
+        for (Product p : coffeeProducts) {
+            System.out.println(p);
         }
     }
+
     public void getSmoothieMenu() {
-        for (Product m : smoothieProducts) {
-            System.out.println(m);
+        for (Product p : smoothieProducts) {
+            System.out.println(p);
         }
     }
 
     public void getSideMenu() {
-        for (Product m : sideProducts) {
-            System.out.println(m);
+        for (Product p : sideProducts) {
+            System.out.println(p);
         }
     }
 
