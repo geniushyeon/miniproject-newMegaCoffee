@@ -7,6 +7,7 @@ public class OrderProduct {
     public OrderProduct(Product product) {
         this.product = product;
     }
+
     public OrderProduct(Product product, boolean option) {
         this.product = product;
         this.option = option;

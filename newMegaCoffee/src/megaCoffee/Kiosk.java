@@ -2,7 +2,7 @@ package megaCoffee;
 import java.util.Scanner;
 public class Kiosk {
 
-    MenuRepository menuRepository = new MenuRepository();
+    ProductRepository productRepository = new ProductRepository();
     OrderRepository orderRepository = new OrderRepository();
     MemberRepository memberRepository = new MemberRepository();
 
@@ -10,6 +10,7 @@ public class Kiosk {
 
     private int packingType;
     private int stamp = 0;
+    private int choiceMenu;
     private String id;
     private int password;
 
@@ -29,7 +30,7 @@ public class Kiosk {
     }
 
     private void chooseMenu() {
-        for (; ; ) {
+        for (;;) {
             System.out.println("1. 주문\t2. 결제");
             System.out.print("입력: ");
             int choice = scanner.nextInt();
@@ -46,40 +47,40 @@ public class Kiosk {
         System.out.println("주문하실 메뉴를 골라주세요. ");
         System.out.println("1. 커피\t2. 스무디\t3. 사이드");
         System.out.print("입력: ");
-        int choice = scanner.nextInt();
-        if (choice == 1)
+        choiceMenu = scanner.nextInt();
+        if (choiceMenu == 1)
             orderCoffee();
-        if (choice == 2)
+        if (choiceMenu == 2)
             orderSmoothie();
-        if (choice == 3)
+        if (choiceMenu == 3)
             orderSide();
     }
 
     private void orderSide() {
         System.out.println("사이드 메뉴입니다. ");
-        menuRepository.getSideMenu();
+        productRepository.getSideList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(new OrderProduct(menuRepository.sideProducts.get(choice - 1)));
-        orderRepository.sum += menuRepository.sideProducts.get(choice - 1).getPrice();
+        orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
+        orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
     }
 
     private void orderSmoothie() {
         System.out.println("스무디 메뉴입니다.");
-        menuRepository.getSmoothieMenu();
+        productRepository.getSmoothieList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(new OrderProduct(menuRepository.smoothieProducts.get(choice - 1)));
-        orderRepository.sum += menuRepository.smoothieProducts.get(choice - 1).getPrice();
+        orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
+        orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
     }
 
     private void orderCoffee() {
         System.out.println("커피 메뉴입니다.");
-        menuRepository.getCoffeeMenu();
+        productRepository.getCoffeeList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(new OrderProduct(menuRepository.coffeeProducts.get(choice - 1)));
-        orderRepository.sum += menuRepository.coffeeProducts.get(choice - 1).getPrice();
+        orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
+        orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
         stamp++;
     }
 
