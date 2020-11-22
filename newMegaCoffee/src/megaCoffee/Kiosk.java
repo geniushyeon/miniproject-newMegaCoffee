@@ -58,7 +58,7 @@ public class Kiosk {
 
     private void orderSide() {
         System.out.println("사이드 메뉴입니다. ");
-        productRepository.getSideList();
+        System.out.println(productRepository.getSideList());
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
@@ -67,7 +67,7 @@ public class Kiosk {
 
     private void orderSmoothie() {
         System.out.println("스무디 메뉴입니다.");
-        productRepository.getSmoothieList();
+        System.out.println(productRepository.getSmoothieList());
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
@@ -76,7 +76,7 @@ public class Kiosk {
 
     private void orderCoffee() {
         System.out.println("커피 메뉴입니다.");
-        productRepository.getCoffeeList();
+        System.out.println(productRepository.getCoffeeList());
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
@@ -89,8 +89,9 @@ public class Kiosk {
         System.out.println("1. 예\t2. 아니오");
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        if (choice == 1)
+        if (choice == 1) {
             stampcard();
+        }
         getReceipt();
     }
 

@@ -19,28 +19,45 @@ public class ProductRepository {
         productList.add(new Product(9, ProductType.SIDE, "딸기 빙수", 7000));
         productList.add(new Product(10, ProductType.SIDE, "아이스크림크로플", 8000));
     }
-    public void getCoffeeList() {
+
+    public List<Product> getCoffeeList() {
+        List<Product> coffeeList = new ArrayList<>();
         for (int i=0; i<productList.size(); i++) {
             if (productList.get(i).getProductType().toString().equals("COFFEE")) {
-                System.out.println(productList.get(i));
+            coffeeList.add(productList.get(i));
             }
         }
+        return coffeeList;
     }
 
-    public void getSmoothieList() {
+    public List<Product> getSmoothieList() {
+        List<Product> smoothieList = new ArrayList<>();
         for (int i=0; i<productList.size(); i++) {
             if (productList.get(i).getProductType().toString().equals("SMOOTHIE")) {
-                System.out.println(productList.get(i));
+            smoothieList.add(productList.get(i));
             }
         }
+        return smoothieList;
     }
 
-    public void getSideList() {
-        for (int i=0; i<productList.size(); i++) {
+    public List<Product> getSideList() {
+        List<Product> sideList = new ArrayList<>();
+        for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i).getProductType().toString().equals("SIDE")) {
-                System.out.println(productList.get(i));
+                sideList.add(productList.get(i));
             }
         }
+        return sideList;
     }
+
+    /*
+    * public void getCoffeeList() {
+    *   for (int i=0; i<productList.size(); i++) {
+            if (productList.get(i).getProductType().toString().equals("COFFEE")) {
+            System.out.println(productList.get(i));
+            }
+        }
+    *
+    * */
 
 }
