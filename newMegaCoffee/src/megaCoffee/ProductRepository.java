@@ -1,10 +1,21 @@
 package megaCoffee;
+
+import megaCoffee.entities.Product;
+import megaCoffee.entities.ProductType;
+
 import java.util.*;
+
 public class ProductRepository {
     List<Product> productList = new ArrayList<>();
+    List<Product> coffeeList = new ArrayList<>();
+    List<Product> smoothieList = new ArrayList<>();
+    List<Product> sideList = new ArrayList<>();
 
     public ProductRepository() {
         setMenu();
+        getCoffeeList();
+        getSmoothieList();
+        getSideList();
     }
 
     private void setMenu() {
@@ -20,20 +31,26 @@ public class ProductRepository {
         productList.add(new Product(10, ProductType.SIDE, "아이스크림크로플", 8000));
     }
 
+//    public List<Product> getCoffeeList() {
+//
+//        return productList.stream().filter(x -> ProductType.COFFEE.equals(x.getProductType()))
+//                .collect(Collectors.toList()); // 코드 분석하기
+//
+//    }
+
     public List<Product> getCoffeeList() {
-        List<Product> coffeeList = new ArrayList<>();
         for (int i=0; i<productList.size(); i++) {
-            if (productList.get(i).getProductType().toString().equals("COFFEE")) {
-            coffeeList.add(productList.get(i));
+            if (productList.get(i).getProductType() == ProductType.COFFEE) {
+                coffeeList.add(productList.get(i));
             }
         }
         return coffeeList;
     }
 
+
     public List<Product> getSmoothieList() {
-        List<Product> smoothieList = new ArrayList<>();
         for (int i=0; i<productList.size(); i++) {
-            if (productList.get(i).getProductType().toString().equals("SMOOTHIE")) {
+            if (productList.get(i).getProductType() == ProductType.SMOOTHIE) {
             smoothieList.add(productList.get(i));
             }
         }
@@ -41,23 +58,12 @@ public class ProductRepository {
     }
 
     public List<Product> getSideList() {
-        List<Product> sideList = new ArrayList<>();
         for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getProductType().toString().equals("SIDE")) {
+            if (productList.get(i).getProductType() == ProductType.SIDE) {
                 sideList.add(productList.get(i));
             }
         }
         return sideList;
     }
-
-    /*
-    * public void getCoffeeList() {
-    *   for (int i=0; i<productList.size(); i++) {
-            if (productList.get(i).getProductType().toString().equals("COFFEE")) {
-            System.out.println(productList.get(i));
-            }
-        }
-    *
-    * */
 
 }

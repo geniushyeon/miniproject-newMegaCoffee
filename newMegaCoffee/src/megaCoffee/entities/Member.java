@@ -1,4 +1,4 @@
-package megaCoffee;
+package megaCoffee.entities;
 
 public class Member {
     private String id;

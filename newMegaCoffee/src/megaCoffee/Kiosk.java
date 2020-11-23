@@ -1,7 +1,9 @@
 package megaCoffee;
+
 import java.util.Scanner;
 public class Kiosk {
 
+    ProductService productService = new ProductService();
     ProductRepository productRepository = new ProductRepository();
     OrderRepository orderRepository = new OrderRepository();
     MemberRepository memberRepository = new MemberRepository();
@@ -11,6 +13,7 @@ public class Kiosk {
     private int packingType;
     private int stamp = 0;
     private int choiceMenu;
+
     private String id;
     private int password;
 
@@ -58,7 +61,7 @@ public class Kiosk {
 
     private void orderSide() {
         System.out.println("사이드 메뉴입니다. ");
-        System.out.println(productRepository.getSideList());
+        productService.getSideList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
@@ -67,7 +70,7 @@ public class Kiosk {
 
     private void orderSmoothie() {
         System.out.println("스무디 메뉴입니다.");
-        System.out.println(productRepository.getSmoothieList());
+        productService.getSmoothieList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
@@ -76,7 +79,7 @@ public class Kiosk {
 
     private void orderCoffee() {
         System.out.println("커피 메뉴입니다.");
-        System.out.println(productRepository.getCoffeeList());
+        productService.getCoffeeList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
         orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
@@ -97,7 +100,9 @@ public class Kiosk {
 
     private void getReceipt() {
         System.out.println("\n주문 내역입니다. ");
-        orderRepository.getOrderList();
+        for (OrderProduct op : orderRepository.orderProductList) {
+            System.out.println(op);
+        }
         if (packingType == 1) {
             System.out.println(orderRepository.getTogoReceipt());
         }

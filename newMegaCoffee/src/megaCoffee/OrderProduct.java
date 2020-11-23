@@ -1,5 +1,7 @@
 package megaCoffee;
 
+import megaCoffee.entities.Product;
+
 public class OrderProduct {
     private Product product;
     private boolean option;

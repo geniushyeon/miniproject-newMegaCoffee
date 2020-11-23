@@ -1,4 +1,4 @@
-package megaCoffee;
+package megaCoffee.entities;
 
 public class Product {
 
@@ -50,8 +50,8 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
-                ", name='" + name + '\'' +
+                ", name='" + name + ", " +
                 ", price=" + price +
-                '}';
+                "}";
     }
 }

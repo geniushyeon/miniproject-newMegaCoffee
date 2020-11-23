@@ -1,5 +1,7 @@
 package megaCoffee;
 
+import megaCoffee.entities.Member;
+
 import java.util.ArrayList;
 import java.util.List;
 
