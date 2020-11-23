@@ -4,15 +4,17 @@ import megaCoffee.entities.Product;
 
 public class OrderProduct {
     private Product product;
-    private boolean option;
+    private String optionName;
+    private int optionPrice;
 
     public OrderProduct(Product product) {
         this.product = product;
     }
 
-    public OrderProduct(Product product, boolean option) {
+    public OrderProduct(Product product, String optionName, int optionPrice) {
         this.product = product;
-        this.option = option;
+        this.optionName = optionName;
+        this.optionPrice = optionPrice;
     }
 
     public Product getProduct() {
@@ -23,19 +25,28 @@ public class OrderProduct {
         this.product = product;
     }
 
-    public boolean getOption() {
-        return option;
+    public String getOptionName() {
+        return optionName;
     }
 
-    public void setOption(boolean option) {
-        this.option = option;
+    public void setOptionName(String optionName) {
+        this.optionName = optionName;
+    }
+
+    public int getOptionPrice() {
+        return optionPrice;
+    }
+
+    public void setOptionPrice(int optionPrice) {
+        this.optionPrice = optionPrice;
     }
 
     @Override
     public String toString() {
         return "OrderProduct{" +
                 "product=" + product +
-                ", option=" + option +
+                ", optionName='" + optionName + '\'' +
+                ", optionPrice=" + optionPrice +
                 '}';
     }
 }

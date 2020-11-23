@@ -1,11 +1,12 @@
 package megaCoffee;
 
+import megaCoffee.*;
+
 import java.util.Scanner;
 public class Kiosk {
-
     ProductService productService = new ProductService();
     ProductRepository productRepository = new ProductRepository();
-    OrderRepository orderRepository = new OrderRepository();
+    OrderRepository orderRepository = new OrderRepository(); // 주문서 -> DTO
     MemberRepository memberRepository = new MemberRepository();
 
     final Scanner scanner = new Scanner(System.in);
@@ -13,6 +14,10 @@ public class Kiosk {
     private int packingType;
     private int stamp = 0;
     private int choiceMenu;
+    private int orderIndex = 0;
+    private String shotplus = "샷추가";
+    private int shotplusPrice = 500;
+
 
     private String id;
     private int password;
@@ -64,8 +69,9 @@ public class Kiosk {
         productService.getSideList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
+        orderRepository.orderProductList.add(orderIndex, new OrderProduct(productRepository.productList.get(choice - 1)));
         orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
+        orderIndex++;
     }
 
     private void orderSmoothie() {
@@ -73,8 +79,9 @@ public class Kiosk {
         productService.getSmoothieList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
+        orderRepository.orderProductList.add(orderIndex, new OrderProduct(productRepository.productList.get(choice - 1)));
         orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
+        orderIndex++;
     }
 
     private void orderCoffee() {
@@ -82,9 +89,19 @@ public class Kiosk {
         productService.getCoffeeList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(new OrderProduct(productRepository.productList.get(choice - 1)));
+        orderRepository.orderProductList.add(orderIndex, new OrderProduct(productRepository.productList.get(choice - 1)));
         orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
         stamp++;
+        System.out.println("샷을 추가하시겠습니까? (500원)");
+        System.out.println("1. 예\t2. 아니오");
+        System.out.print("입력: ");
+        choice = scanner.nextInt();
+        if (choice == 1) {
+            orderRepository.orderProductList.get(orderIndex).setOptionName(shotplus);
+            orderRepository.orderProductList.get(orderIndex).setOptionPrice(shotplusPrice);
+            orderRepository.sum += orderRepository.orderProductList.get(orderIndex).getOptionPrice();
+        }
+        orderIndex++;
     }
 
     private void payment() {
@@ -102,7 +119,7 @@ public class Kiosk {
         System.out.println("\n주문 내역입니다. ");
         for (OrderProduct op : orderRepository.orderProductList) {
             System.out.println(op);
-        }
+        } // 수정하기
         if (packingType == 1) {
             System.out.println(orderRepository.getTogoReceipt());
         }

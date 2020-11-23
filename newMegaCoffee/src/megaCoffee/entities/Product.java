@@ -50,8 +50,8 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
-                ", name='" + name + ", " +
-                ", price=" + price +
+                ", name='" + name +
+                "', price=" + price +
                 "}";
     }
 }
