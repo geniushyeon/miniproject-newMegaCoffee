@@ -1,12 +1,14 @@
 package megaCoffee;
-
-import megaCoffee.*;
-
 import java.util.Scanner;
+
 public class Kiosk {
-    ProductService productService = new ProductService();
-    ProductRepository productRepository = new ProductRepository();
-    OrderRepository orderRepository = new OrderRepository(); // 주문서 -> DTO
+    // Repository 직접 참조하지 않게 하려면 어떻게 할지 고민해보기 - DTO
+    // Product, Option 수량 구현하기
+    // DB 연동 생각하기
+
+    ProductDto productDto = new ProductDto();
+    OrderDto orderDto = new OrderDto();
+    OptionDto optionDto = new OptionDto();
     MemberRepository memberRepository = new MemberRepository();
 
     final Scanner scanner = new Scanner(System.in);
@@ -15,10 +17,6 @@ public class Kiosk {
     private int stamp = 0;
     private int choiceMenu;
     private int orderIndex = 0;
-    private String shotplus = "샷추가";
-    private int shotplusPrice = 500;
-
-
     private String id;
     private int password;
 
@@ -31,10 +29,10 @@ public class Kiosk {
         chooseMenu();
     }
 
-    private void choosePackingType() {
+    private int choosePackingType() {
         System.out.println("1. 포장\t2. 매장");
         System.out.print("입력: ");
-        packingType = scanner.nextInt();
+        return packingType = scanner.nextInt();
     }
 
     private void chooseMenu() {
@@ -66,42 +64,45 @@ public class Kiosk {
 
     private void orderSide() {
         System.out.println("사이드 메뉴입니다. ");
-        productService.getSideList();
+        productDto.getSideList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(orderIndex, new OrderProduct(productRepository.productList.get(choice - 1)));
-        orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
+        orderDto.orderRepository.orderProductList.add(orderIndex, new OrderProduct(productDto.productRepository.sideList.get(choice - 1)));
+        orderDto.sum += productDto.productRepository.sideList.get(choice - 1).getPrice();
         orderIndex++;
     }
 
     private void orderSmoothie() {
         System.out.println("스무디 메뉴입니다.");
-        productService.getSmoothieList();
+        productDto.getSmoothieList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(orderIndex, new OrderProduct(productRepository.productList.get(choice - 1)));
-        orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
+        orderDto.orderRepository.orderProductList.add(orderIndex, new OrderProduct(productDto.productRepository.smoothieList.get(choice - 1)));
+        orderDto.sum += productDto.productRepository.smoothieList.get(choice - 1).getPrice();
         orderIndex++;
     }
 
     private void orderCoffee() {
         System.out.println("커피 메뉴입니다.");
-        productService.getCoffeeList();
+        productDto.getCoffeeList();
         System.out.print("입력: ");
         int choice = scanner.nextInt();
-        orderRepository.orderProductList.add(orderIndex, new OrderProduct(productRepository.productList.get(choice - 1)));
-        orderRepository.sum += productRepository.productList.get(choice - 1).getPrice();
+        orderDto.orderRepository.orderProductList.add(orderIndex, new OrderProduct(productDto.productRepository.coffeeList.get(choice - 1)));
+        orderDto.sum += productDto.productRepository.coffeeList.get(choice - 1).getPrice();
         stamp++;
-        System.out.println("샷을 추가하시겠습니까? (500원)");
+        orderCoffeeShot();
+        orderIndex++;
+    }
+
+    private void orderCoffeeShot() {
+        System.out.println("샷을 추가하시겠습니까? (500원)"); // ArrayList toString?
         System.out.println("1. 예\t2. 아니오");
         System.out.print("입력: ");
-        choice = scanner.nextInt();
+        int choice = scanner.nextInt();
         if (choice == 1) {
-            orderRepository.orderProductList.get(orderIndex).setOptionName(shotplus);
-            orderRepository.orderProductList.get(orderIndex).setOptionPrice(shotplusPrice);
-            orderRepository.sum += orderRepository.orderProductList.get(orderIndex).getOptionPrice();
+            orderDto.orderRepository.orderProductList.get(orderIndex).setOption(optionDto.optionRepository.optionList.get(0));
+            orderDto.sum += optionDto.optionRepository.optionList.get(0).getOptionPrice();
         }
-        orderIndex++;
     }
 
     private void payment() {
@@ -117,14 +118,12 @@ public class Kiosk {
 
     private void getReceipt() {
         System.out.println("\n주문 내역입니다. ");
-        for (OrderProduct op : orderRepository.orderProductList) {
-            System.out.println(op);
-        } // 수정하기
+        orderDto.getOrderSheet();
         if (packingType == 1) {
-            System.out.println(orderRepository.getTogoReceipt());
+            System.out.println(orderDto.getTogoReceipt());
         }
         if (packingType == 2) {
-            System.out.println(orderRepository.getIndoorReceipt());
+            System.out.println(orderDto.getIndoorReceipt());
         }
     }
 
@@ -140,11 +139,11 @@ public class Kiosk {
             for (int i = 0; i < memberRepository.memberList.size(); i++) {
                 if (id.equals(memberRepository.memberList.get(i).getId()) && password == memberRepository.memberList.get(i).getPassword()) {
                     int clientIndex = i;
-                    System.out.println("\n" + id + " 회원님의 적립 현황입니다. ");
+                    System.out.println("\n" + memberRepository.memberList.get(clientIndex).getId() + " 회원님의 적립 현황입니다. ");
                     memberRepository.memberList.get(clientIndex).setStamp(stamp);
-                    System.out.println("스탬프 개수: " + stamp + "개");
+                    System.out.println("스탬프 개수: " + memberRepository.memberList.get(clientIndex).getStamp() + "개");
                     if (stamp >= 3) {
-                        System.out.println("커피 쿠폰이 " + stamp / 3 + "개 발급되었습니다.");
+                        System.out.println("커피 쿠폰이 " + memberRepository.memberList.get(clientIndex).getStamp() / 3 + "개 발급되었습니다.");
                     } else {
                         System.out.println("발급된 쿠폰이 없습니다. ");
                     }

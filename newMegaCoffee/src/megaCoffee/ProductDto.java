@@ -2,7 +2,7 @@ package megaCoffee;
 
 import megaCoffee.entities.Product;
 
-public class ProductService {
+public class ProductDto {
     ProductRepository productRepository = new ProductRepository();
 
     public void getCoffeeList() {
